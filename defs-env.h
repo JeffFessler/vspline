@@ -113,10 +113,8 @@
 /*
 *	And of course this varies too
 */
-#if defined(_SIZE_T_)
+#if !defined(Size_t)
 #	define Size_t	size_t
-#else
-#	define Size_t	unsigned
 #endif
 
 #if !defined(noConst)
@@ -124,6 +122,8 @@
 #else
 #	define Const
 #endif
+
+typedef Const Size_t cSize_t; // needed by ../defs/def,alloc.h
 
 #if !defined(MAXint)
 #	define MAXchar		127
@@ -137,11 +137,12 @@
 /*
 *	others
 */
-#include "def,macro.h"
-
+// def,type.h must precede def,macro.h (which uses cchar, cint, ...)
 #ifndef No_defs_type
 #include "def,type.h"
 #endif
+
+#include "def,macro.h"
 
 #include "def,inline.h"
 #include "def,alloc.h"
