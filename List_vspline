@@ -1,0 +1,175 @@
+#
+# src/vspline/List_vspline
+# For building, linking, linting with VSPLINE Library.
+#
+# VS_ are expected for internal use only, VSPLINE_ are for external
+# This expects VSPLINE_SRC, src_def, and LIB0_DIR to be defined
+
+VS_SRC_OPTIMA=$(VSPLINE_SRC)/optima
+VS_SRC_IODEP =$(VSPLINE_SRC)/matrix
+VS_SRC_MATRIX=$(VSPLINE_SRC)/matrix
+VS_SRC_SMOOTH=$(VSPLINE_SRC)/smooth
+VS_SRC_NONLIN=$(VSPLINE_SRC)/nonlin
+
+VS_LIB_OPTIMA=$(LIB0_DIR)/libVoptima.a
+VS_LIB_IODEP= $(LIB0_DIR)/libViodep.a
+VS_LIB_MATRIX=$(LIB0_DIR)/libVmatrix.a
+VS_LIB_SMOOTH=$(LIB0_DIR)/libVsmooth.a
+VS_LIB_NONLIN=$(LIB0_DIR)/libVnonlin.a
+VSPLINE_LIBS=	\
+	$(VS_LIB_SMOOTH) $(VS_LIB_OPTIMA) $(VS_LIB_MATRIX) \
+	$(VS_LIB_IODEP)
+#	$(VS_LIB_NONLIN) 
+#VLIBS=-L$(LIB) -lVnonlin -lVsmooth -lVoptima -lVmatrix -lViodep
+
+PREC=Double
+VSPLINE_INCS= -D$(PREC)Prec -I$(VSPLINE_SRC) -I$(src_def) \
+	-I$(VS_SRC_MATRIX) -I$(VS_SRC_SMOOTH) -I$(VS_SRC_NONLIN)
+LFLAGS=-u $(incs)
+
+VS_H_OPTIMA = \
+	$(VSPLINE_SRC)/defs-env.h \
+	$(VSPLINE_SRC)/defs-vspline.h \
+	$(VS_SRC_MATRIX)/defs_vmatrix.h
+VS_H_MATRIX = \
+	$(VSPLINE_SRC)/defs-env.h \
+	$(VSPLINE_SRC)/defs-vspline.h \
+	$(VS_SRC_MATRIX)/defs_vmatrix.h \
+	$(VS_SRC_MATRIX)/mexdep.h
+VS_H_SMOOTH=$(VS_H_MATRIX) \
+	$(VS_SRC_SMOOTH)/smooth.h $(VS_SRC_SMOOTH)/decs-smooth.h
+VS_H_NONLIN=$(VS_H_SMOOTH) $(VS_SRC_NONLIN)/nonlin.h
+
+#
+# All .h files
+#
+VSPLINE_H=	\
+	$(VS_H_NONLIN)
+
+
+#
+# for Vmatrix
+#
+
+VS_C_IODEP=	\
+		$(VS_SRC_IODEP)/debug.c \
+		$(VS_SRC_IODEP)/mexdep.c
+VS_O_IODEP=	\
+		$(VS_LIB_IODEP)(debug.o) \
+		$(VS_LIB_IODEP)(mexdep.o)
+VS_O_IOMEX=	\
+		$(VS_LIB_MEXDEP)/debug.o \
+		$(VS_LIB_MEXDEP)/mexdep.o
+
+VS_C_MATRIX=	\
+		$(VS_SRC_MATRIX)/alloc.c \
+		$(VS_SRC_MATRIX)/ident.c \
+		$(VS_SRC_MATRIX)/io_d.c \
+		$(VS_SRC_MATRIX)/vector_f.c \
+		$(VS_SRC_MATRIX)/vector_d.c
+#		$(VS_SRC_MATRIX)/sub_mat.c
+VS_O_MATRIX=	\
+		$(VS_LIB_MATRIX)(alloc.o) \
+		$(VS_LIB_MATRIX)(ident.o) \
+		$(VS_LIB_MATRIX)(io_d.o) \
+		$(VS_LIB_MATRIX)(vector_f.o) \
+		$(VS_LIB_MATRIX)(vector_d.o)
+#		$(VS_LIB_MATRIX)(sub_mat.o)
+
+#
+# Voptima
+#
+VS_C_OPTIMA=	\
+		$(VS_SRC_OPTIMA)/my_brent.c \
+		$(VS_SRC_OPTIMA)/my_linmin.c \
+		$(VS_SRC_OPTIMA)/my_mnbrak.c \
+		$(VS_SRC_OPTIMA)/my_powell.c
+VS_O_OPTIMA=	\
+		$(VS_LIB_OPTIMA)(my_brent.o) \
+		$(VS_LIB_OPTIMA)(my_linmin.o) \
+		$(VS_LIB_OPTIMA)(my_mnbrak.o) \
+		$(VS_LIB_OPTIMA)(my_powell.o)
+
+#
+# Vsmooth
+#
+VS_C_BAND=	\
+		$(VS_SRC_SMOOTH)/band_util.c \
+		$(VS_SRC_SMOOTH)/covar.c \
+		$(VS_SRC_SMOOTH)/sym_band.c
+#		$(VS_SMOOTH)/sym_band.o
+
+VS_C_SMOOTH=	\
+		$(VS_C_BANDC) \
+		$(VS_SRC_SMOOTH)/interp.c \
+		$(VS_SRC_SMOOTH)/vs_init.c \
+		$(VS_SRC_SMOOTH)/vs_smooth.c \
+		$(VS_SRC_SMOOTH)/vs_proc.c
+VS_C_SCORE=	\
+		$(VS_C_SMOOTH) \
+		$(VS_SRC_SMOOTH)/cv_score.c \
+		$(VS_SRC_SMOOTH)/cv_sub.c
+VS_C_BEST=	\
+		$(VS_C_SCORE) \
+		$(VS_SRC_SMOOTH)/best_indiv.c \
+		$(VS_SRC_SMOOTH)/best_mse.c \
+		$(VS_SRC_SMOOTH)/best_score.c
+
+VS_C_SMOOTHEX=	\
+		$(VS_C_BEST) \
+		$(VS_SRC_SMOOTH)/example1.c
+#		$(VS_SRC_SMOOTH)/example2.c
+
+VS_O_BAND=	\
+		$(VS_LIB_SMOOTH)(band_util.o) \
+		$(VS_LIB_SMOOTH)(covar.o) \
+		$(VS_LIB_SMOOTH)(sym_band.o)
+VS_O_SMOOTH=	\
+		$(VS_LIB_SMOOTH)(interp.o) \
+		$(VS_LIB_SMOOTH)(vs_init.o) \
+		$(VS_LIB_SMOOTH)(vs_smooth.o) \
+		$(VS_LIB_SMOOTH)(vs_proc.o)
+VS_O_SCORE=	\
+		$(VS_LIB_SMOOTH)(cv_score.o) \
+		$(VS_LIB_SMOOTH)(cv_sub.o)
+VS_O_BEST=	\
+		$(VS_LIB_SMOOTH)(best_indiv.o) \
+		$(VS_LIB_SMOOTH)(best_mse.o) \
+		$(VS_LIB_SMOOTH)(best_score.o)
+VS_O_SMOOTHEX=	\
+		$(VS_LIB_SMOOTH)(example1.o)
+#		$(VS_LIB_SMOOTH)(example2.o)
+
+#
+# Vnonlin
+#
+VS_C_NALLOC=	\
+		$(VS_SRC_NONLIN)/alloc.c \
+		$(VS_SRC_NONLIN)/blur_sigjac.c
+VS_C_NONLIN=	\
+		$(VS_C_NALLOC) \
+		$(VS_SRC_NONLIN)/example.c \
+		$(VS_SRC_NONLIN)/mle_ind.c \
+		$(VS_SRC_NONLIN)/nl_main.c \
+		$(VS_SRC_NONLIN)/nl_update.c \
+		$(VS_SRC_NONLIN)/nonlin_info.c \
+		$(VS_SRC_NONLIN)/nonlin_sub.c \
+		$(VS_SRC_NONLIN)/pseudo.c \
+		$(VS_SRC_NONLIN)/ridge_reg1.c
+VS_C_NLBEST=	\
+		$(VS_SRC_NONLINC) \
+		$(VS_SRC_NONLIN)/nonlin_best.c
+VS_O_NALLOC=	\
+		$(VS_LIB_NONLIN)(alloc.o) \
+		$(VS_LIB_NONLIN)(blur_sigjac.o)
+VS_O_NONLIN=	\
+		$(VS_LIB_NONLIN)(example.o) \
+		$(VS_LIB_NONLIN)(mle_ind.o) \
+		$(VS_LIB_NONLIN)(nl_main.o) \
+		$(VS_LIB_NONLIN)(nl_update.o) \
+		$(VS_LIB_NONLIN)(nonlin_info.o) \
+		$(VS_LIB_NONLIN)(nonlin_sub.o) \
+		$(VS_LIB_NONLIN)(pseudo.o) \
+		$(VS_LIB_NONLIN)(ridge_reg1.o)
+VS_O_NLBEST=	\
+		$(VS_LIB_NONLIN)(nonlin_best.o)

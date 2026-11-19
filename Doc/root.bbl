@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{netlib:87}
+J.~J.~Dongarra and E.~Grosse, ``Distibution of mathematical software via
+  electronic mail,'' {\it Comm. ACM}, vol.~30, pp.~403--407, Oct. 1987.
+
+\bibitem{Fessler:91:lin}
+J.~Fessler, ``Nonparametric fixed-interval smoothing with vector splines,''
+  {\it IEEE Transactions on Signal Processing}.
+\newblock Apr. 1991.
+
+\bibitem{Fessler:91:non}
+J.~Fessler, ``Nonlinear smoothing with vector splines,''
+  {\it IEEE Transactions on Signal Processing}.
+\newblock Apr. 1991.
+
+\bibitem{numrecc:88}
+W.~H.~Press, B.~P.~Flannery, S.~A.~Teukolsky, and W.~T.~Vetterling, {\it
+  Numerical Recipes in {C}}.
+\newblock Cambridge Univ. Press, 1988.
+
+\bibitem{HutchHoog:85}
+M.~Hutchinson and F.~deHoog, ``Smoothing noisy data with spline functions,''
+  {\it Numerische Mathematik}, vol.~47, pp.~99--106,  1985.
+
+\end{thebibliography}

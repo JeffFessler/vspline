@@ -1,0 +1,111 @@
+\section{Software Interface - Linear Problems}
+
+\subsection{Conventions}
+
+We have adopted the Numerical Recipes in C~\cite{numrecc:88} convention
+of using unit offset arrays
+where convenient
+(almost everywhere).
+If an array is declared
+{\tt double vect[100];}
+then
+{\tt (\&vect[0]-1)} or {\tt (vect-1)}
+should be passed to
+the subroutines below.
+
+
+\subsection{Subroutine {\tt vspline}}
+
+The syntax for {\tt vspline} is:
+
+\begin{verbatim}
+
+int vspline(ys, alpha, tn, yn, inv_sigma, iid, M, N)
+float *alpha;
+double *ys, *tn, *yn, *inv_sigma;
+int iid, M, N;
+
+\end{verbatim}
+
+%I repeat that the arrays are all unit offset,
+%i.e., {\tt alpha[1]} is the first element of {\tt alpha},
+%and {\tt alpha[M]} is the last.
+
+{\tt M} is the dimension (length) the measurement vectors $\y_n$.
+{\tt N} is the number of samples.
+{\tt alpha} is the $M$ smoothing parameters.
+{\tt tn} is the $N$ sample points.  If the samples are uniform,
+then set {\tt tn} to {\tt (double *) NULL}.
+The measurements are stored in 
+{\tt yn}
+in the order
+$\{ y_{1,1},\ldots,y_{1,M}, \ldots, y_{N,1},\ldots,y_{N,M} \}$.
+If {\tt iid} is 1, the covariances are assumed to be identical,
+and {\tt inv\_sigma} is the $M^2$ elements of $\mcov^{-1}$,
+stored by columns or rows
+(it is symmetric).
+However, if {\tt iid} is 0,
+the covariances can vary with $n$,
+and {\tt inv\_sigma} is a $N \cdot M^2$ array
+of the concatenation of the elements of
+$\bSigma_1^{-1}, \ldots, \bSigma_N^{-1}$
+in the natural order.
+
+On return,
+{\tt ys} is the $N\cdot M$ array of
+$\hat{\y}_1,\ldots,\hat{\y}_N$,
+stored in the same order as {\tt yn}.
+{\tt vspline} returns 1 if all goes well,
+0 if there is an error.
+The possible errors are: running out of memory,
+{\tt tn} not strictly increasing,
+or singular covariance matrices.
+
+\subsection{Subroutine {\tt bestcv}}
+
+The syntax for {\tt bestcv} is identical to that of {\tt vspline}.
+The difference is that
+{\tt alpha} is used as an initial estimate for
+$\balpha_{\CV}$.
+On return,
+{\tt alpha} is set to $\balpha_{\CV}$,
+and {\tt ys}
+is the smoothed estimate at that value of $\balpha$.
+
+\subsection{Subroutine {\tt cubic\_interp}}
+
+Each component function of
+$\bghata(t)$
+is a scalar cubic spline.
+To compute values of
+$\hat{g}_{\balpha,m}(t)$
+for values of $t$ other than the knots,
+call 
+{\tt cubic\_interp}.
+%Currently,
+%{\tt cubic\_interp}
+%is implemented only for scalar functions.
+%The syntax is:
+
+\begin{verbatim}
+
+int cubic_interp(yk, tn, ys, tk, N, K)
+double *yk, *tn, *ys, *tk;
+int N, K;
+
+\end{verbatim}
+
+{\tt tn} is the $N$ sample points,
+and {\tt ys} is the $N$ smoothed estimates
+for one of the component functions,
+e.g.
+$\{\hat{y}_{n,m}\}_{n=1}^N$. \
+{\tt tk} is $K$ new points at which
+$\hat{g}_{\balpha,m}(t)$
+is to be evaluated.
+On return,
+{\tt yk} is the $K$ interpolated samples.
+{\tt cubic\_interp} returns 1 if successful, 0 otherwise.
+{\tt cubic\_interp} is not very efficient,
+and may not be exact for values of $t$
+outside of $[t_1,t_N]$.

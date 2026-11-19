@@ -1,0 +1,51 @@
+	This is what the directory hierarchy should look like.
+	Roughly.
+
+Defs_make    License      README       Dirlist      vspl
+Elice        Makefile     Vlist        distr*
+Enetlib      Print.make   defs.h       distr.yee*
+
+Arch:
+doc.old.bun.Z   numrecC.bun.Z
+
+Data:
+README*         data1_vs.out    data3           data3i_vs.out   data5
+data1           data2           data3_vs.out    data4           data5_ci.out
+data1_bs.out    data2_vs.out    data3i          data4_ss.out
+
+Doc:
+README          root.bbl        s1.tex          s4.tex
+defs.tex        root.tex        s2.tex          s5.tex
+defs_math.tex   s0.tex          s3.tex          size.tex
+
+Test:
+Makefile      read_data.c   test_ss.c
+data.h        test_ci.c     test_vs.c
+
+matrix:
+debug.c      io_f.c       mexdep.h     vector_f.c
+Makefile     ident.c      matrix.h     sub_mat.c
+alloc.c      io_d.c       mexdep.c     vector_d.c
+
+nonlin:
+alloc.c         mle_ind.c       nonlin_best.c   ridge_reg1.c
+Makefile        blur_sigjac.c   nl_main.c       nonlin_info.c
+README          example.c       nl_update.c     nonlin_sub.c
+Test/           memreq.m        nonlin.h        pseudo.c
+
+nonlin/Test:
+Arch/            sigarg.h         sigjac_taurad.   test_nb.c
+Makefile         sigjac_edge.c    test_gen.c       test_nl.c
+
+nonlin/Test/Arch:
+fix_lamphi.c   lm_test.c
+
+optima:
+my_brent.c    my_mnbrak.c
+Makefile      my_linmin.c   my_powell.c
+
+smooth:
+best_mse.c     cv_sub.c       interp.c       vs_proc.c
+Makefile       best_score.c   dbvs.m         smooth.h       vs_smooth.c
+band_util.c    covar.c        example1.c     sym_band.c
+best_indiv.c   cv_score.c     example2.c     vs_init.c

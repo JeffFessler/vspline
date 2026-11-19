@@ -1,0 +1,35 @@
+
+Thank you for your interest in vspline.  The algorithms implemented therein
+are described in a pair of articles that appeared in the April 1991 issue of
+the IEEE Transactions on Signal Processing.  My motivation for this work
+was a medical imaging problem (arterial tree reconstruction) described in
+an article that appeared in the March 1991 issue of the IEEE Transactions
+on Medical Imaging.
+
+Unfortunately, I was unable to find funds for reprints of any of those papers.
+Currently, the only code documentation is the LaTex file distributed with vspline.
+
+The 2nd SP article describes a nonlinear method that I haven't yet distributed
+to netlib - it is considerably more complicated since the user must supply
+the nonlinear meaurement function.
+
+I'd be happy to send you the most recent linear and nonlinear code - caveat emptor.
+I haven't written a "user's manual" for the nonlinear model, since I didn't want
+to waste a lot of effort on something that I had no idea whether anyone else
+would actually use.  I am very interested in learing of new applications for
+these methods, and if you are seriously considering applying them to your problems,
+whatever they may be, it just might provide me the incentive to document the code
+more carefully.  This would be especially true if there were the opportunity
+for collaboration.
+
+My current email address is
+fessler@umich.edu
+and my work phone is (313) 763-1434.
+
+Feel free to contact me either way.
+If you have a moment, I'd be very interested in hearing or reading
+what your problem is.
+
+If you don't have easy access to IEEE-SP and a photocopier, I can send you
+photocopies of the SP articles.  Please let me know.
+

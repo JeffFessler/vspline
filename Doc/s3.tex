@@ -1,0 +1,67 @@
+\section{Choosing the smoothing parameters - Cross Validation}
+\label{sec:auto}
+
+The smoothing parameter
+$\balpha$
+can be chosen automatically~\cite{Fessler:91:lin}
+by minimizing the 
+cross validation (CV) score:
+\[
+\balpha_{\CV} \defequ \arg \min_{\balpha} \CV(\balpha),
+\]
+\be
+\CV(\balpha) \defequ \frac{1}{N} \sum_{n=1}^N 
+(\meas_n - \mfun(\hat{\g}_{\balpha, -n}(t_n)))' \mcov_n^{-1}
+(\meas_n - \mfun(\hat{\g}_{\balpha, -n}(t_n)))
+.\ee{eq:cv-score}
+$\hat{\g}_{\balpha, -n}$
+is the solution to the smoothing problem (\ref{eq:multi-min})
+with N-1 data points,
+posed
+while excluding
+the pair $(t_n, \meas_n)$.
+Each data pair is dropped in turn,
+the smoothed curve $\bghatan$ is estimated,
+and the predicted value $\bghatan(t_n)$
+is compared with the unused measurement $\y_n$.
+If the CV score is small,
+then we have
+chosen the smoothing parameter
+that makes
+the estimated curve a good self predictor.
+
+Although equation~(\ref{eq:cv-score})
+illustrates the idea behind cross validation,
+it is computationally inefficient.
+We have shown that,
+in the linear case,
+one can rewrite (\ref{eq:cv-score})
+as:
+\be
+\CV(\balpha) = \frac{1}{N} \sum_{n=1}^N
+\| \mcov_n^{-\frac{1}{2}} (\I_M - \Ad{nn})\inv
+	(\meas_n - \bghata(t_n)) \|^2
+,\ee{eq:cv-score2}
+where $\Ad{nn}$ is the $n$'th $M \times M$
+block diagonal submatrix of the influence matrix.
+In the nonlinear case,
+(\ref{eq:cv-score2}) is a useful approximation,
+as shown in~\cite{Fessler:91:non}.
+The properties of this approximation
+are not completely understood.
+
+By using the Hutchinson and de Hoog algorithm~\cite{HutchHoog:85},
+(\ref{eq:cv-score2}) is computed
+in only O($M^3N$) operations.
+
+Subroutine
+{\tt bestcv},
+described below,
+computes
+$\balpha_{\CV}$
+and
+$\hat{\g}_{\balpha_{\CV}}$.
+The VSPLINE library also
+contains routines for computing
+Generalized Cross Validation
+and Unbiased Risk scores~\cite{Fessler:91:lin}.

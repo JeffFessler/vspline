@@ -1,0 +1,27 @@
+#
+# src/vspline/Defs_make
+# Master makefile definitions for vspline library
+#
+
+#
+# 1) Comment out the line below and uncomment the 3 lines following it.
+#
+include $(HOME)/l/src/make/Makedef.$(Arch)
+
+#
+# 2) Modify the flags and the ranlib calls for your system if needed.
+#
+#BCFLAGS=-O1
+#DO_LIB=ranlib $@
+
+#
+# 3) Change the next 4 lines to suit your directory structure
+# Full pathnames are required
+#
+VSPLINE_SRC=$(src_top)/vspline
+BIN_VSPLINE=$(VSPLINE_SRC)/Data
+LIB0_DIR=$(bin_top)/libs
+src_def=$(src_top)/defs
+
+VS_CFLAGS=$(BCFLAGS) -UCountAlloc
+VS_LFLAGS=-u

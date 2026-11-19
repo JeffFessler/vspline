@@ -1,0 +1,150 @@
+%	def,gen.tex
+%	Latex2e macros
+
+%	sections
+\providecommand{\inputtex}[1]		{\label{#1}\input{#1}}
+\providecommand{\isection}[2]		{\section{#1}\inputtex{#2}}
+\providecommand{\isubsection}[2]	{\subsection{#1}\inputtex{#2}}
+
+%	latin
+\providecommand{\etal}		{\emph{et al\@.}\xspace}
+\providecommand{\ie}		{\emph{i.e\@.}\xspace}
+\providecommand{\eg}		{\emph{e.g\@.}\xspace}
+\providecommand{\cf}		{\emph{cf\@.}\xspace}
+\providecommand{\defacto}	{\emph{de facto}\xspace}
+\providecommand{\adhoc}		{\emph{ad hoc}\xspace}
+\providecommand{\apriori}	{\emph{a priori}\xspace}
+
+%	names with accents
+\providecommand{\Erdogan}	{Erdo\u{g}an\xspace}
+
+%	web
+\providecommand{\myurl}		{\texttt{http://www.eecs.umich.edu/$\sim$fessler}\xspace}
+\providecommand{\onweb}[1]	{Available from \myurl.}
+
+%	huge comments
+\long\def\comment#1{}
+\providecommand{\uncomment}[1]	{#1}
+
+%	common environments
+\providecommand{\bcent}		{\begin{center}}
+\providecommand{\ecent}		{\end{center}}
+\providecommand{\benum}		{\begin{enumerate}}
+\providecommand{\eenum}		{\end{enumerate}}
+\providecommand{\bitem}		{\begin{itemize}}
+\providecommand{\eitem}		{\end{itemize}}
+\providecommand{\bvers}		{\begin{verse}}
+\providecommand{\evers}		{\end{verse}}
+%\providecommand{\bverb}	{\begin{verbatim}}
+%\providecommand{\everb}	{\end{verbatim}}
+
+%	positioning
+\providecommand{\lfill}		{\mbox{}\hfill}
+\providecommand{\rfill}		{\hfill\mbox{}}
+\newcommand{\cent}[1]		{\lfill{#1}\rfill}
+
+%	box with text stacked up in it
+\newcommand{\stacktext}[2][c]	{\begin{tabular}{#1}#2\end{tabular}}
+\newcommand{\fsbox}[2][c]	{\fbox{\stacktext[#1]{#2}}}
+
+\providecommand{\ul}[1]		{\underline{#1}}
+\providecommand{\ebox}[1]	{\mbox{\fbox{$\displaystyle#1$}}}
+\providecommand{\cbox}[1]	{\[\ebox{#1}\]}
+
+%	bullet list with normal spacing
+\newcounter{blist}
+\providecommand{\blistmark}	{\makebox[0pt]{$\bullet$}}
+\providecommand{\blist}[1][]	{\begin{list}{\blistmark}{%
+\usecounter{blist}%
+\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}%
+\setlength{\parskip}{0pt}\setlength{\partopsep}{0pt}%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{1.2em}%
+\setlength{\labelsep}{0.5\leftmargin}%	centers label in margin
+\setlength{\labelwidth}{0em}#1}%
+}
+\providecommand{\elist}		{\end{list}}
+
+%	Alpha list with normal spacing
+\newcounter{blistAlph}
+\providecommand{\blistAlph}[1][]
+{\begin{list}{\Alph{blistAlph}.}{%
+\usecounter{blistAlph}%
+\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}%
+\setlength{\parskip}{0pt}\setlength{\partopsep}{0pt}%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{1.2em}%
+\setlength{\labelsep}{0.5\leftmargin}%	centers label in margin
+\setlength{\labelwidth}{0.5\leftmargin}#1}%
+}
+
+%	Roman list with a bit of spacing
+\newcounter{blistRoman}
+\providecommand{\blistRoman}[1][]
+{\begin{list}{\Roman{blistRoman}.}{%
+\usecounter{blistRoman}%
+\setlength{\itemsep}{0.5em}\setlength{\parsep}{0pt}%
+\setlength{\parskip}{0pt}\setlength{\partopsep}{0pt}%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{4em}%
+\setlength{\labelsep}{0.4\leftmargin}
+\setlength{\labelwidth}{0.6\leftmargin}#1}%
+}
+
+%
+%	Portrait
+%	use \pagesize[.2in]{5in}{7in} to center width and height
+%	first argument is optional parindent
+%	at top of page: 1in, \topmargin, \headheight(for header), \headsep
+%
+\providecommand{\myheadheight}	{0in}
+\providecommand{\myheadsep}	{0in}
+\providecommand{\Halfheight}	{5.5in}		% half of 11" vertical page
+\providecommand{\Halfwidth}	{4.25in}	% half of 8.5" horizontal page
+\providecommand{\pagesize}[3][\parindent]{
+\setlength{\parindent}{#1}
+\setlength{\textwidth}{#2}
+\setlength{\textheight}{#3}
+\setlength{\headsep}{\myheadsep}
+\setlength{\headheight}{\myheadheight}
+\setlength{\oddsidemargin}{\Halfwidth}
+\addtolength{\oddsidemargin}{-0.5\textwidth}
+\addtolength{\oddsidemargin}{-1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\topmargin}{\Halfheight}
+\addtolength{\topmargin}{-0.5\textheight}
+\addtolength{\topmargin}{-0.5\headheight}
+\addtolength{\topmargin}{-0.5\headsep}
+\addtolength{\topmargin}{-1in}
+}
+
+%
+%	Landscape
+%	use \pagesizeland[.2in]{5in}{7in} to center width and height
+%	first argument is optional parindent
+%
+\providecommand{\pagesizeland}[3][\parindent]{
+\setlength{\parindent}{#1}
+\setlength{\textwidth}{#2}
+\setlength{\textheight}{#3}
+\setlength{\headsep}{0.0in}
+\setlength{\headheight}{0.0in}
+\setlength{\oddsidemargin}{5.5in}
+\addtolength{\oddsidemargin}{-0.5\textwidth}
+\addtolength{\oddsidemargin}{-1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\topmargin}{4.25in}
+\addtolength{\topmargin}{-0.5\textheight}
+\addtolength{\topmargin}{-1in}
+}
+
+%
+%	half of top margin for headings.
+%
+\providecommand{\pagehead}{%
+\setlength{\headsep}{\topmargin}%
+\addtolength{\headsep}{1in}%
+\setlength{\headsep}{0.5\headsep}%
+\setlength{\headheight}{\headsep}%
+\setlength{\topmargin}{-1in}%
+}

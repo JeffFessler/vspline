@@ -1,0 +1,24 @@
+#!/bin/sh
+files="License README Defs_make List_vspline Makefile defs.h Doc/* Test/*.[ch] matrix/*.[ch] smooth/*.[ch] nonlin/*.[ch] optima/*[.ch] */Makefile Data/*"
+
+echo '# This is a bundled file containing the VSPLINE library.'
+echo '# (Non-parametric fixed-interval smoothing with vector-splines.)'
+echo '# To unbundle, remove everything above this line, then sh this file'
+echo 'mkdir Doc Test Data matrix smooth optima nonlin'
+
+for i in $files
+do
+	echo "echo $i 1>&2"
+	echo "cat >$i <<'End of $i'"
+	cat $i
+	echo "End of $i"
+done
+
+for i in ../defs/*.h
+do
+	root=`basename $i`
+	echo "echo $root 1>&2"
+	echo "cat >$root <<'End of $root'"
+	cat $i
+	echo "End of $root"
+done

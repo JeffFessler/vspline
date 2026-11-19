@@ -1,0 +1,77 @@
+\section{Spline smoothing of vector measurements}
+\label{sec:vector}
+
+Consider the {\em vector} measurement model:
+\be
+\y_n = \mfun(\g(t_n)) + \bveps_n,
+\ \ n=1, \ldots, N
+,\ee{eq:multi-model}
+\[
+\g(t_n) \in \Re^M, \ \ 
+\bveps_n, \y_n \in \Re^L, \ \ 
+\bveps_n \sim N(\bzero, \mcov_n), \ \
+E \{ \bveps_n \bveps_m' \} = 0, \ n \neq m,
+\]
+with known symmetric and positive-definite
+error covariances $\mcov_n$.
+The goal of smoothing is to estimate 
+the smooth vector-valued function
+\g,
+given the measurements $\{\y_n\}_{n=1}^N$.
+
+The nonparametric approach to this problem
+prescribes a compromise
+between
+the conflicting goals of
+fit to the data
+and
+smoothness of the estimated functions.
+An estimate is obtained
+by using
+the following criterion,
+which is the natural generalization
+of a similar criterion used for scalar measurements:
+\be
+\bghata = 
+\arg \min_{\g}
+\sum_{n=1}^N (\y_n - \mfun(\g(t_n)))'
+\mcov_n^{-1} (\y_n - \mfun(\g(t_n)))
++ R_{\balpha}(\g)
+,\ee{eq:multi-min}
+where
+\[
+R_{\balpha}(\g) = \sum_{m=1}^M \alpha_m \int (\ddot{g}_m(t))^2 \ dt .
+\]
+The smoothing parameter $\balpha$
+controls the tradeoff
+between residual error and smoothness.
+Although
+$\bghata(t)$
+is a continuous function,
+it is uniquely determined by its values at the knots
+$t_1, \ldots, t_N$,
+denoted
+$\hat{\y}_n = \bghata(t_n)$.
+
+The {\tt vspline} library
+contains special purpose subroutines
+for efficiently minimizing~(\ref{eq:multi-min}).
+Two cases are implemented:
+``linear'' smoothing for $\mfun(\g)=\g$,
+and ``nonlinear'' smoothing
+where the nonlinear function $\mfun$
+and its derivatives must be implemented by the user.
+
+Subroutine
+{\tt vspline},
+described below,
+computes
+$\{ \hat{\y}_n \}_{n=1}^N$
+given
+$\balpha$,
+%$\alpha_1, \ldots, \alpha_M$,
+$\{ \y_n \}_{n=1}^N $,
+$\{ t_n \}_{n=1}^N $,
+and
+$\{ \mcov_n^{-1} \}_{n=1}^N $.
+The computational requirements~\cite{Fessler:91:lin} are $O(M^3\cdot N)$.

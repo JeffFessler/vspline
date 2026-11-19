@@ -1,0 +1,136 @@
+%	def,math.tex
+%	latex2e definitions of math symbols
+
+%	notes
+%	amsmath has subscript stacking: \sum_{\substack{ n=1 \\ n \neq m}}^N
+%	dvips -Ppdf for making pdf files?  \special for pdf hyperlinks?
+
+\providecommand{\sumstack}[2]	{\sum_{\substack{#1 \\ #2}}}
+
+\providecommand{\ba}[1]		{\left[ \begin{array}{#1}}
+\providecommand{\ea}		{\end{array} \right]}
+\providecommand{\ber}[1]	{\renewcommand{\theequation}{#1}\be}
+\providecommand{\be}		{\begin{equation}}
+\providecommand{\ee}[1]		{\label{#1}\end{equation}}
+\providecommand{\bear}[1]	{\renewcommand{\theequation}{#1}\bea}
+\providecommand{\bea}		{\begin{eqnarray}}
+\providecommand{\eea}[1]	{\label{#1}\end{eqnarray}}
+\providecommand{\beas}		{\begin{eqnarray*}}
+\providecommand{\eeas}		{\end{eqnarray*}}
+\providecommand{\beals}[1][1]	{\begin{alignat*}{#1}}	% requires amsmath
+\providecommand{\eeals}		{\end{alignat*}}
+
+%	can this be done?
+%\providecommand{\bebox}[1][\mbox{\fbox{$\displaystyle]	{\begin{equation}#1}
+%\providecommand{\eebox}[1]	{$\}\}\label{#1}\end{equation}}
+%\providecommand{\eebox}[2][$\}\}]	{#1\label{#2}\end{equation}}
+
+\providecommand{\inmath}	{\ensuremath}
+\providecommand{\xmath}[1]	{\inmath{#1}\xspace}
+\providecommand{\bmath}[1]	{\xmath{\bm{#1}}}	% needs \usepackage{bm}
+\providecommand{\eref}[1]	{(\protect\ref{#1})}
+\providecommand{\fref}[2][]	{Fig.~\protect\ref{#2}#1}
+\providecommand{\conj}		{\inmath{^{\star}}}
+\providecommand{\degr}		{\xmath{^{\circ}}}
+\providecommand{\conv}		{\inmath{\ast}}
+\providecommand{\cconv}		{\inmath{\ast\mbox{$\!\!$}\ast}}
+\providecommand{\ccconv}	{\inmath{\ast\mbox{$\!\!$}\ast\mbox{$\!\!$}\ast}}
+
+\providecommand{\reals}		{\xmath{\mathrm{I\kern-.2em R}}}
+\providecommand{\inv}		{\inmath{^{-\!1}}}
+\providecommand{\powten}[1]	{\inmath{\cdot10^{#1}}}
+\providecommand{\thus}		{\xmath{\stackrel{\textstyle .}{..}}}
+
+% invisible rule to make brackets etc. bigger
+\providecommand{\irule}[1][-0.7em] {\rule[#1]{0pt}{0pt}}
+
+\providecommand{\evalat}[2]	{\left. #1 \right|_{#2}}
+\providecommand{\Evalat}[3][0.7em]	% -0.4\baselineskip
+	{\left. #2 \irule[-#1] \right|_{#3}}
+\providecommand{\choos}[2]	{\xmath{\left(\begin{array}{c} #1\\#2\end{array}\right)}}
+\providecommand{\paren}[1]	{\xmath{\left(#1\right)}}
+\providecommand{\pparen}[1]	{\xmath{\bigl(#1\bigr)}}
+\providecommand{\of}[1]		{\!\left(#1\right)}
+\providecommand{\brak}[1]	{\xmath{\left[#1\right]}}
+\providecommand{\braces}[1]	{\xmath{\left\{#1\right\}}}
+\providecommand{\abs}[1]	{\xmath{\left| #1 \right|}}
+\providecommand{\norm}[1]	{\xmath{\left\| #1 \right\|}}
+\providecommand{\floor}[1]	{\xmath{\left\lfloor #1 \right\rfloor}}
+\providecommand{\ceil}[1]	{\xmath{\left\lceil #1 \right\rceil}}
+\providecommand{\inprod}[2]	{\xmath{\langle #1,\, #2 \rangle}}
+\providecommand{\Inprod}[2]	{\xmath{\left\langle #1,\ #2 \right\rangle}}
+
+\providecommand{\qed}[1][0pt]	{\hfill\raisebox{#1}{\inmath{\Box}}}	% need latexsym package
+\providecommand{\musec}		{\xmath{\mu}sec}
+
+\providecommand{\dddot}[1]	{\inmath{#1^{(3)}}}
+\providecommand{\ddddot}[1]	{\inmath{#1^{(4)}}}
+\providecommand{\defequ}	{\stackrel{\bigtriangleup}{=}}
+\providecommand{\iid}		{\stackrel{iid}{\sim}}
+\providecommand{\half}[1][1]	{\xmath{{\scriptstyle \frac{#1}{2}}}}
+\providecommand{\Half}[1][1]	{\xmath{\frac{#1}{2}}}
+\providecommand{\dsqrt}[1]	{\xmath{\sqrt{\displaystyle #1}}}
+\providecommand{\dfrac}[2]	{\xmath{\displaystyle\frac{#1}{#2}}}
+\providecommand{\Frac}[2]	{\xmath{{#1}/{#2}}}
+\providecommand{\pfrac}[3][]	{\xmath{\!\paren{#1\frac{#2}{#3}}}}
+\providecommand{\pFrac}[3][]	{\xmath{\!\paren{#1\Frac{#2}{#3}}}}
+\providecommand{\dpfrac}[3][]	{\xmath{\!\paren{#1\dfrac{#2}{#3}}}}
+
+\providecommand{\icomplex}	{\xmath{\imath}}
+%\providecommand{\icomplex}	{\xmath{\iota}}
+\providecommand{\eexp}		{\xmath{\mathrm{e}}}
+\providecommand{\Expi}[1]	{\xmath{\eexp^{\icomplex #1}}}
+\providecommand{\expi}[1]	{\xmath{\exp\of{\icomplex #1}}}
+\providecommand{\Expni}[1]	{\xmath{\eexp^{-\icomplex #1}}}
+\providecommand{\expni}[1]	{\xmath{\exp\of{-\icomplex #1}}}
+\providecommand{\Expo}[1]	{\xmath{\eexp^{#1}}}
+\providecommand{\expo}[1]	{\xmath{\exp\of{#1}}}
+\providecommand{\Expn}[1]	{\xmath{\eexp^{-#1}}}
+\providecommand{\expn}[1]	{\xmath{\exp\of{-#1}}}
+\providecommand{\Exp}		{\expo}	% backward compat
+\providecommand{\Cos}[1]	{\xmath{\cos\of{#1}}}
+\providecommand{\Sin}[1]	{\xmath{\sin\of{#1}}}
+
+\providecommand{\ddt}[1][t]	{\inmath{\frac{\der{}}{\der{#1}}}}
+\providecommand{\dder}[2]	{\inmath{\frac{\der{}^{#2}}{\der{#1}^{#2}}}}
+\providecommand{\fpart}[1]	{\frac{\partial}{\partial #1}}
+\providecommand{\ffpart}[1]	{\frac{\partial^2}{\partial #1^2}}
+\providecommand{\ffpartt}[2]	{\frac{\partial^2}{\partial #1 \partial #2}}
+%\providecommand{\Part}[1]	{\frac{\partial}{\partial #1}}
+%\providecommand{\Partt}[1]	{\frac{\partial^2}{\partial #1}}
+%\providecommand{\Parttt}[1]	{\frac{\partial^3}{\partial #1}}
+
+\providecommand{\modulo}	{\mathrm{modulo}}
+\providecommand{\Normal}[1]	{{\mathcal N}\of{#1}}
+\providecommand{\mathword}[3][]	{\,\inmath{\mathrm{#2}#1\of{#3}}}
+\providecommand{\wordbrace}[3][]{\,\inmath{\mathrm{#2}#1\!\braces{#3}}}
+\providecommand{\Poisson}[1]	{\wordbrace{Poisson}{#1}}
+\providecommand{\diag}[1]	{\wordbrace{diag}{#1}}
+\providecommand{\var}[1]	{\wordbrace{Var}{#1}}
+\providecommand{\cov}[1]	{\wordbrace{Cov}{#1}}
+\newcommand{\sinc}[2][]		{\mathword[#1]{sinc}{#2}}
+\newcommand{\rect}[1]	 	{\mathword{rect}{#1}}
+\newcommand{\sgn}[1]	 	{\mathword{sgn}{#1}}
+\providecommand{\real}[1]	{\mathword{real}{#1}}
+\providecommand{\imag}[1]	{\mathword{imag}{#1}}
+
+\providecommand{\leftbrace}[1]	{\left\{\begin{array}{ll} #1 \end{array}\right.}
+\providecommand{\zeroother}	{\\ 0, & \mathrm{otherwise}}
+\providecommand{\mystack}[2][c]	{\xmath{\begin{array}{#1} #2 \end{array}}}
+\providecommand{\myvect}[2][c]	{\xmath{\brak{\begin{array}{#1} #2 \end{array}}}}
+\providecommand{\bigone}[1][\Large]	{\mbox{ {#1 1}}\xspace}
+\providecommand{\indic}[2][\Large]	{\xmath{\mbox{ {#1 1}}_{\{#2\}}}}
+
+\providecommand{\negint}	{-\!\!\int\!}
+\providecommand{\intinf}	{\int_{\!-\infty}^{\infty}}
+\providecommand{\iintinf}	{\intinf\intinf}
+\providecommand{\iint}		{\int\!\!\!\int}
+\providecommand{\iiint}		{\int\!\!\!\int\!\!\!\int}
+\providecommand{\iiiint}	{\int\!\!\!\int\!\!\!\int\!\!\!\int}
+\providecommand{\der}[1]	{\xmath{\,\mathrm{d}#1}}
+\providecommand{\dxy}		{\der{x}\der{y}}
+\providecommand{\dxyz}		{\der{x}\der{y}\der{z}}
+
+\providecommand{\Gam}		{\xmath{\Gamma}}
+\providecommand{\eps}		{\xmath{\epsilon}}
+\providecommand{\veps}		{\xmath{\varepsilon}}

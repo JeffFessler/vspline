@@ -1,0 +1,22 @@
+	The subroutines in this directory
+	solve the following problem:
+	\hat{g} = \arg \min_g \sum_{n=1}^N \| y_n - h(g(t_n)) \|^2 + 
+	\sum_{m=1}^M \int \ddot{g}^2 dt.
+	This is a penalized maximum likelihood problem,
+	and it reverts to the ordinary MLE when alpha==0.
+	However, since the vector spline smoothing subroutine
+	called below actually uses Nexp(alpha) for alpha,
+	if the MLE is desired, then set alpha to be NULL.
+	The function "h" is effected by the procedure (*sigjac)(),
+	that must have the following declaration:
+
+	void sigjacfunc(out, sig, jac, off, state, sigarg)
+	SIGJAC_RETURN *out;
+	SIGNAL_SET sig;
+	JACOB_SET jac;
+	OFFSET_SET off;
+	PARAM_SET state;
+	Void *sigarg;
+
+	sigarg is some structure of other possibly useful info
+	that is never used anywhere but in sigjacfunc.

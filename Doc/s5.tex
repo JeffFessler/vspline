@@ -1,0 +1,58 @@
+
+\section{Installation}
+VSPLINE
+is distributed as a Bourne Shell ``bundle''.
+Create a directory called {\tt vspline},
+move the bundled file to that directory,
+and type {\tt sh} {\em filename} at a UNIX prompt.
+The file {\tt README} contains important
+installation instructions.
+
+When installed,
+the C source code resides in several subdirectories.
+{\tt matrix} contains very general vector
+and matrix utility subroutines.
+Simply by changing the definitions in
+{\tt matrix/matrix.h},
+one could use a different library.
+{\tt smooth}
+contains utilities for banded matrices,
+and the smoothing subroutines themselves.
+Finally,
+{\tt Test}
+contains programs we used to test the library.
+The test programs were applied to
+the data files in {\tt Data};
+to verify your installation,
+follow the instructions in {\tt Data/README}.
+One {\tt Makefile} in the parent directory
+controls compilation of all three subdirectories.
+This Makefile creates five libraries:
+{\tt libnonlin.a, libsmooth.a,
+liboptima.a, libmatrix.a, libiodep.a},
+which should be linked {\em in the order given}
+when compiling.
+The Makefile in the Test directory provides a good
+example.
+
+%The {\tt powell} subroutine
+%of the Numerical Recipes in C library~\cite{numrecc:88}
+%is used to minimize the CV score.
+%Therefore, you must load in both {\tt libvspline.a}
+%and (e.g.) {\tt libnumrecC.a}.
+%If you do not have this library,
+%type {\tt make libvsmooth.a}.
+%This latter library is a subset of
+%the VSPLINE library
+%that contains the basic smoothing routines
+%(sufficient to use the {\tt vspline} routine),
+%but does not contain the routines
+%for minimizing the CV score.
+
+{\tt vspline} resides in {\tt smooth/example1.c},
+{\tt bestcv} in {\tt smooth/example2.c}.
+A subroutine called {\tt vect\_smooth}
+in {\tt smooth/example1.c}
+gives another example of how the VSPLINE library can used.
+{\tt cubic\_interp} resides in {\tt smooth/interp.c}.
+The \LaTeX source for this document is in {\tt smooth/Doc}.
